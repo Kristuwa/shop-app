@@ -1,18 +1,11 @@
-import { useState } from "react";
 // import { CardItem } from "../../components/CardItem/CardItem";
 // import axios from "axios";
-import {
-  //   ButtonBack,
-  //   HeadContainer,
-  //   List,
-  //   LoadMore,
-  Message,
-} from "./ShoppingCart.styled";
-// import { HiOutlineArrowCircleLeft } from "react-icons/hi";
-
+import { useState } from "react";
+import { ButtonBack, List, Message } from "./ShoppingCart.styled";
+import { HiOutlineArrowCircleLeft } from "react-icons/hi";
 import { useLocation } from "react-router-dom";
 
-function ShoppingCart() {
+function ShoppingCart({ list }) {
   const location = useLocation();
 
   const [loading, setLoading] = useState(false);
@@ -22,39 +15,24 @@ function ShoppingCart() {
 
   return (
     <main>
-      {/* {followingUsers.length > 0 && !error && !loading && (
+      {list.length > 0 && !error && !loading && (
         <>
-          <HeadContainer>
-            <ButtonBack to={backLinkHref}>
-              <HiOutlineArrowCircleLeft /> Back
-            </ButtonBack>
-            <DropDownMenu
-              handleDropdownMenu={handleDropdownMenu}
-              isOpen={openMenu}
-            />
-          </HeadContainer>
+          <ButtonBack to={backLinkHref}>
+            <HiOutlineArrowCircleLeft /> Back
+          </ButtonBack>
 
           <List>
-            {followingUsers.map(
-              ({ id, following, avatar, tweets, followersCount }) => (
-                <CardItem
-                  key={id}
-                  avatar={avatar}
-                  tweets={tweets}
-                  following={following}
-                  followersCount={followersCount}
-                  id={id}
-                />
-              )
-            )}
+            {list.map(({ id, name, photo, count, price }) => (
+              <li key={id}>
+                <img src={photo} alt={name} />
+                <p>{name}</p>
+                <p>Counter: {count}</p>
+                <p>Price: {count * price}</p>
+              </li>
+            ))}
           </List>
-          {totalPages > 1 && currentPage < totalPages && (
-            <LoadMore type="button" onClick={handleLoadMore}>
-              Load More
-            </LoadMore>
-          )}
         </>
-      )} */}
+      )}
       {!error && loading && <Message>Loading....</Message>}
       {error && !loading && <Message>{error}</Message>}
     </main>
