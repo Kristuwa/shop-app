@@ -1,0 +1,100 @@
+[
+  {
+    "name": "MCDonald's",
+    "products": [
+      {
+        "name": "Chips",
+        "photo": "https://loremflickr.com/cache/resized/65535_52594947840_50a6fe652b_z_640_480_nofilter.jpg",
+        "price": "9",
+        "id": "29"
+      },
+      {
+        "name": "Cheese",
+        "photo": "https://loremflickr.com/cache/resized/5731_30359427592_02317dd0b1_z_640_480_nofilter.jpg",
+        "price": "8",
+        "id": "30"
+      },
+      {
+        "name": "Fresh",
+        "photo": "https://loremflickr.com/cache/resized/3114_2798313334_ecb64ab0a6_z_640_480_nofilter.jpg",
+        "price": "8",
+        "id": "31"
+      },
+      {
+        "name": "Omelette",
+        "photo": "https://loremflickr.com/cache/resized/65535_52532983777_30183856d6_b_640_480_nofilter.jpg",
+        "price": "3",
+        "id": "32"
+      }
+    ]
+  },
+  {
+    "name": "Thompson and Sons",
+    "products": [
+      {
+        "name": "Vareniki",
+        "photo": "https://loremflickr.com/cache/resized/65535_52586606121_e098a0ed10_c_640_480_nofilter.jpg",
+        "price": "3",
+        "id": "5"
+      },
+      {
+        "name": "Pizza",
+        "photo": "https://loremflickr.com/cache/resized/7795_27348820235_b1e0d26bc0_c_640_480_nofilter.jpg",
+        "price": "2",
+        "id": "6"
+      }
+    ]
+  },
+  {
+    "name": "Dibbert LLC",
+    "products": [
+      {
+        "name": "Burger",
+        "photo": "https://loremflickr.com/cache/resized/1063_1342027616_083d99e257_z_640_480_nofilter.jpg",
+        "price": "8",
+        "id": "9"
+      },
+      {
+        "name": "Salad 1",
+        "photo": "https://loremflickr.com/cache/resized/65535_52917953822_b5d5f38ba1_z_640_480_nofilter.jpg",
+        "price": "9",
+        "id": "10"
+      },
+      {
+        "name": "Soup",
+        "photo": "https://loremflickr.com/cache/resized/65535_52708204499_d25ddcc253_z_640_480_nofilter.jpg",
+        "price": "8",
+        "id": "11"
+      },
+      {
+        "name": "Strawberry",
+        "photo": "https://loremflickr.com/cache/resized/65535_52785726267_fab5f78b7b_b_640_480_nofilter.jpg",
+        "price": "6",
+        "id": "12"
+      }
+    ]
+  },
+  {
+    "name": "Rutherford - Wunsch",
+    "products": [
+      {
+        "name": "Big Burger",
+        "photo": "https://loremflickr.com/cache/resized/1762_43034566321_10edfa5b5f_c_640_480_nofilter.jpg",
+        "price": "4",
+        "id": "1"
+      },
+      {
+        "name": "Potato",
+        "photo": "https://loremflickr.com/cache/resized/65535_52309792698_d0fdd1b219_z_640_480_nofilter.jpg",
+        "price": "6",
+        "id": "2"
+      },
+      {
+        "name": "Salad",
+        "photo": "https://loremflickr.com/cache/resized/65535_52692916361_110904eb76_c_640_480_nofilter.jpg",
+        "price": "6",
+        "id": "3"
+      }
+    ]
+  }
+]
