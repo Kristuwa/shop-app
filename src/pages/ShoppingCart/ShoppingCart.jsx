@@ -34,6 +34,7 @@ function ShoppingCart({
             <List>
               {list.map(({ id, name, photo, count, price }) => (
                 <CartProductItem
+                  key={id}
                   id={id}
                   name={name}
                   photo={photo}

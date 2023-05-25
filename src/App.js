@@ -6,6 +6,8 @@ import { SharedLayout } from "./components/SharedLayout/SharedLayout";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { BASE_URL } from "./utils/constants";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ShoppingCart = lazy(() => import("./pages/ShoppingCart/ShoppingCart"));
 const Shop = lazy(() => import("./pages/Shop/Shop"));
@@ -107,9 +109,11 @@ function App() {
         setLoading(false);
         setError(null);
         setCart([]);
+        toast.success("You have successfully submitted your order");
       } else {
         setLoading(false);
-        alert("Add products to cart");
+        toast.warn("Please, add products to cart");
+        return;
       }
     } catch (err) {
       setLoading(false);
@@ -119,6 +123,19 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
+      <ToastContainer
+        icon={false}
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
       <Routes>
         <Route path="/" element={<SharedLayout />}>
           <Route
@@ -132,6 +149,7 @@ function App() {
                 error={error}
                 loading={loading}
                 activeButton={activeShop}
+                cart={cart}
               />
             }
           />

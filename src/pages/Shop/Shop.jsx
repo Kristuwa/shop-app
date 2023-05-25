@@ -11,6 +11,7 @@ const Shop = ({
   error,
   loading,
   activeButton,
+  cart
 }) => {
   return (
     <main>
@@ -23,15 +24,17 @@ const Shop = ({
                 name={name}
                 handleChooseShop={handleChooseShop}
                 activeButton={activeButton}
+					 cart={cart}
               />
             ))}
           </ButtonsList>
           {shopProducts?.length > 0 && !error && !loading && (
             <ProductsList>
-              {shopProducts.map(({ id, name, photo }) => (
+              {shopProducts.map(({ id, name, photo, price }) => (
                 <ProductItem
                   name={name}
                   photo={photo}
+                  price={price}
                   handleAddToCart={handleAddToCart}
                   key={id}
                   id={id}
