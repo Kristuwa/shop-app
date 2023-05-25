@@ -3,11 +3,12 @@ import { HiOutlineArrowCircleLeft } from "react-icons/hi";
 import { useLocation } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
+import { useCallback } from "react";
 
 const validateSchema = Yup.object().shape({
   name: Yup.string()
-    .min(2, "Too Short!")
-    .max(50, "Too Long!")
+    .min(3, "Too Short!")
+    .max(30, "Too Long!")
     .required("Required"),
   email: Yup.string().email("Invalid email").required("Required"),
   phone: Yup.string()
@@ -15,7 +16,7 @@ const validateSchema = Yup.object().shape({
     .max(50, "Too Long!")
     .required("Required"),
   address: Yup.string()
-    .min(2, "Too Short!")
+    .min(10, "Too Short!")
     .max(250, "Too Long!")
     .required("Required"),
 });
@@ -33,10 +34,13 @@ function ShoppingCart({
 
   const backLinkHref = location.state?.from ?? "/";
 
-  const onSubmit = (values, { resetForm }) => {
-    addOder(values, list);
-    resetForm();
-  };
+  const onSubmit = useCallback(
+    (values, { resetForm }) => {
+      addOder(values, list);
+      resetForm();
+    },
+    [addOder, list]
+  );
 
   return (
     <main>

@@ -1,15 +1,14 @@
 import { theme } from "./utils/theme";
-import { lazy } from "react";
+import { lazy, useCallback } from "react";
 import { Route, Routes } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { SharedLayout } from "./components/SharedLayout/SharedLayout";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { BASE_URL } from "./utils/constants";
 
 const ShoppingCart = lazy(() => import("./pages/ShoppingCart/ShoppingCart"));
 const Shop = lazy(() => import("./pages/Shop/Shop"));
-
-const BASE_URL = "https://backend-shop-s5w1.onrender.com/api";
 
 function App() {
   const [shopList, setShopList] = useState([]);
@@ -46,51 +45,59 @@ function App() {
     }
   }, [setShopProducts, activeShop, shopList]);
 
-  const handleAddToCart = (id) => {
-    const newProduct = shopProducts.find((product) => product.id === id);
+  const handleAddToCart = useCallback(
+    (id) => {
+      const newProduct = shopProducts.find((product) => product.id === id);
 
-    const index = cart.findIndex((product) => product.id === id);
-    if (index === -1) {
-      setCart((prevState) => [...prevState, { ...newProduct, count: 1 }]);
-    } else {
-      setCart((prevState) =>
-        prevState.map((item) =>
-          item.id === id ? { ...item, count: item.count + 1 } : item
-        )
-      );
-    }
-  };
+      const index = cart.findIndex((product) => product.id === id);
+      if (index === -1) {
+        setCart((prevState) => [...prevState, { ...newProduct, count: 1 }]);
+      } else {
+        setCart((prevState) =>
+          prevState.map((item) =>
+            item.id === id ? { ...item, count: item.count + 1 } : item
+          )
+        );
+      }
+    },
+    [cart, shopProducts]
+  );
 
-  const handleChooseShop = (name) => {
+  const handleChooseShop = useCallback((name) => {
     setActiveShop(name);
-  };
+  }, []);
 
-  const handleDelete = (id) => {
+  const handleDelete = useCallback((id) => {
     setCart((prevState) => prevState.filter((product) => product.id !== id));
-  };
+  }, []);
 
-  const handleIncrement = (id) => {
+  const handleIncrement = useCallback((id) => {
     setCart((prevState) =>
       prevState.map((item) =>
         item.id === id ? { ...item, count: item.count + 1 } : item
       )
     );
-  };
+  }, []);
 
-  const handleDecrement = (id) => {
-    const product = cart.find((product) => product.id === id);
-    if (product.count > 1) {
-      setCart((prevState) =>
-        prevState.map((item) =>
-          item.id === id ? { ...item, count: item.count - 1 } : item
-        )
-      );
-    } else {
-      setCart((prevState) => prevState.filter((product) => product.id !== id));
-    }
-  };
+  const handleDecrement = useCallback(
+    (id) => {
+      const product = cart.find((product) => product.id === id);
+      if (product.count > 1) {
+        setCart((prevState) =>
+          prevState.map((item) =>
+            item.id === id ? { ...item, count: item.count - 1 } : item
+          )
+        );
+      } else {
+        setCart((prevState) =>
+          prevState.filter((product) => product.id !== id)
+        );
+      }
+    },
+    [cart]
+  );
 
-  const addOder = async (formValues, list) => {
+  const addOder = useCallback(async (formValues, list) => {
     setLoading(true);
     try {
       if (list.length > 0) {
@@ -108,7 +115,7 @@ function App() {
       setLoading(false);
       setError(err.message);
     }
-  };
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>
