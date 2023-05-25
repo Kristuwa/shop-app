@@ -11,8 +11,6 @@ export const CardContainer = styled.li`
 export const Image = styled.img`
   border-radius: 10px;
   margin-bottom: 10px;
-  width: 200px;
-  height: 100px;
 `;
 
 export const CardTitle = styled.p`
