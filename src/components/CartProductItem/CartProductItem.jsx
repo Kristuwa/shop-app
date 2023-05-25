@@ -22,12 +22,14 @@ export const CartProductItem = ({
   handleIncrement,
   handleDelete,
 }) => {
+  const totalPrice = count * price;
+
   return (
     <CardContainer>
       <Image src={photo} alt={name} />
       <CardTitle>{name}</CardTitle>
       <CounterContainer>
-        <Text>Counter: {count}</Text>
+        <Text>Quantity: {count}</Text>
         <ButtonCounter
           type="button"
           onClick={() => handleDecrement(id)}
@@ -43,7 +45,7 @@ export const CartProductItem = ({
           <RiAddFill />
         </ButtonCounter>
       </CounterContainer>
-      <Text>Price: {count * price}</Text>
+      <Text>Price: {totalPrice}</Text>
       <Button type="button" onClick={() => handleDelete(id)}>
         Delete
       </Button>
