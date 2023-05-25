@@ -1,19 +1,19 @@
 {
   "files": {
     "main.css": "/shop-app/static/css/main.fb841a4b.css",
-    "main.js": "/shop-app/static/js/main.27694716.js",
-    "static/js/39.4d48b135.chunk.js": "/shop-app/static/js/39.4d48b135.chunk.js",
-    "static/js/473.3c3d3b97.chunk.js": "/shop-app/static/js/473.3c3d3b97.chunk.js",
+    "main.js": "/shop-app/static/js/main.cd8cb3c0.js",
+    "static/js/39.451c41b5.chunk.js": "/shop-app/static/js/39.451c41b5.chunk.js",
+    "static/js/473.60cc9293.chunk.js": "/shop-app/static/js/473.60cc9293.chunk.js",
     "static/js/10.b2f4a3bb.chunk.js": "/shop-app/static/js/10.b2f4a3bb.chunk.js",
     "index.html": "/shop-app/index.html",
     "main.fb841a4b.css.map": "/shop-app/static/css/main.fb841a4b.css.map",
-    "main.27694716.js.map": "/shop-app/static/js/main.27694716.js.map",
-    "39.4d48b135.chunk.js.map": "/shop-app/static/js/39.4d48b135.chunk.js.map",
-    "473.3c3d3b97.chunk.js.map": "/shop-app/static/js/473.3c3d3b97.chunk.js.map",
+    "main.cd8cb3c0.js.map": "/shop-app/static/js/main.cd8cb3c0.js.map",
+    "39.451c41b5.chunk.js.map": "/shop-app/static/js/39.451c41b5.chunk.js.map",
+    "473.60cc9293.chunk.js.map": "/shop-app/static/js/473.60cc9293.chunk.js.map",
     "10.b2f4a3bb.chunk.js.map": "/shop-app/static/js/10.b2f4a3bb.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.fb841a4b.css",
-    "static/js/main.27694716.js"
+    "static/js/main.cd8cb3c0.js"
   ]
 }
