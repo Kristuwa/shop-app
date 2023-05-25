@@ -1,4 +1,7 @@
+import { ProductItem } from "../../components/ProductItem/ProductItem";
+import { ShopItem } from "../../components/ShopItem/ShopItem";
 import { Message } from "../ShoppingCart/ShoppingCart.styled";
+import { ButtonsList, ProductsList, Section } from "./Shop.styled";
 
 const Shop = ({
   handleAddToCart,
@@ -7,34 +10,36 @@ const Shop = ({
   handleChooseShop,
   error,
   loading,
+  activeButton,
 }) => {
   return (
     <main>
       {shopList.length > 0 && !error && !loading && (
-        <>
-          <ul>
+        <Section>
+          <ButtonsList>
             {shopList.map(({ _id, name }) => (
-              <li key={_id}>
-                <button type="button" onClick={() => handleChooseShop(name)}>
-                  {name}
-                </button>
-              </li>
+              <ShopItem
+                key={_id}
+                name={name}
+                handleChooseShop={handleChooseShop}
+                activeButton={activeButton}
+              />
             ))}
-          </ul>
-          {shopProducts.length > 0 && !error && !loading && (
-            <ul>
+          </ButtonsList>
+          {shopProducts?.length > 0 && !error && !loading && (
+            <ProductsList>
               {shopProducts.map(({ id, name, photo }) => (
-                <li key={id}>
-                  <img src={photo} alt={name} />
-                  <p>{name}</p>
-                  <button type="button" onClick={() => handleAddToCart(id)}>
-                    Add to cart
-                  </button>
-                </li>
+                <ProductItem
+                  name={name}
+                  photo={photo}
+                  handleAddToCart={handleAddToCart}
+                  key={id}
+                  id={id}
+                />
               ))}
-            </ul>
+            </ProductsList>
           )}
-        </>
+        </Section>
       )}
       {!error && loading && <Message>Loading....</Message>}
       {error && !loading && <Message>{error}</Message>}

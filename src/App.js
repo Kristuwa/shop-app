@@ -109,7 +109,7 @@ function App() {
         setCart([]);
       } else {
         setLoading(false);
-        setError("Add products to cart");
+        alert("Add products to cart");
       }
     } catch (err) {
       setLoading(false);
@@ -131,6 +131,7 @@ function App() {
                 handleChooseShop={handleChooseShop}
                 error={error}
                 loading={loading}
+                activeButton={activeShop}
               />
             }
           />
