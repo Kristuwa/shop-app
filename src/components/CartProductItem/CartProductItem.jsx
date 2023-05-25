@@ -26,7 +26,7 @@ export const CartProductItem = ({
 
   return (
     <CardContainer>
-      <Image src={photo} alt={name} />
+      <Image src={photo} alt={name} width="200px" height="150px" />
       <CardTitle>{name}</CardTitle>
       <CounterContainer>
         <Text>Quantity: {count}</Text>
