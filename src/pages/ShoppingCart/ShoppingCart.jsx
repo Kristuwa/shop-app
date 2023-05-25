@@ -3,9 +3,6 @@ import { HiOutlineArrowCircleLeft } from "react-icons/hi";
 import { useLocation } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-import { useState } from "react";
-import axios from "axios";
-import { BASE_URL } from "../../App";
 
 const validateSchema = Yup.object().shape({
   name: Yup.string()
@@ -28,38 +25,17 @@ function ShoppingCart({
   handleDelete,
   handleDecrement,
   handleIncrement,
+  addOder,
+  loading,
+  error,
 }) {
   const location = useLocation();
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
 
   const backLinkHref = location.state?.from ?? "/";
 
-  const addOder = async (formValues, list) => {
-    setLoading(true);
-    try {
-      if (list.length > 0) {
-        const newOrder = { ...formValues, products: list };
-        console.log(JSON.stringify(newOrder));
-        await axios.post(
-          `https://backend-shop-s5w1.onrender.com/api/orders`,
-          newOrder
-        );
-        setLoading(false);
-        setError(null);
-      } else {
-        setLoading(false);
-        setError("Add products to cart");
-      }
-    } catch (err) {
-      setLoading(false);
-      setError(err.message);
-    }
-  };
-
-  const onSubmit = async (values) => {
-    console.log(values);
-    await addOder(values, list);
+  const onSubmit = (values, { resetForm }) => {
+    addOder(values, list);
+    resetForm();
   };
 
   return (

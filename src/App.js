@@ -9,7 +9,7 @@ import { useState, useEffect } from "react";
 const ShoppingCart = lazy(() => import("./pages/ShoppingCart/ShoppingCart"));
 const Shop = lazy(() => import("./pages/Shop/Shop"));
 
-export const BASE_URL = "https://backend-shop-s5w1.onrender.com/api";
+const BASE_URL = "https://backend-shop-s5w1.onrender.com/api";
 
 function App() {
   const [shopList, setShopList] = useState([]);
@@ -26,7 +26,6 @@ function App() {
         const result = await axios.get(`${BASE_URL}/shops`);
         const { data } = result.data;
         const shops = data.result;
-        console.log(shops);
 
         setShopList(shops);
         setLoading(false);
@@ -91,6 +90,26 @@ function App() {
     }
   };
 
+  const addOder = async (formValues, list) => {
+    setLoading(true);
+    try {
+      if (list.length > 0) {
+        const newOrder = { ...formValues, products: list };
+
+        await axios.post(`${BASE_URL}/orders`, newOrder);
+        setLoading(false);
+        setError(null);
+        setCart([]);
+      } else {
+        setLoading(false);
+        setError("Add products to cart");
+      }
+    } catch (err) {
+      setLoading(false);
+      setError(err.message);
+    }
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <Routes>
@@ -116,6 +135,9 @@ function App() {
                 handleDelete={handleDelete}
                 handleDecrement={handleDecrement}
                 handleIncrement={handleIncrement}
+                addOder={addOder}
+                error={error}
+                loading={loading}
               />
             }
           />
