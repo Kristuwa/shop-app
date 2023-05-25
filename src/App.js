@@ -9,22 +9,31 @@ import { useState, useEffect } from "react";
 const ShoppingCart = lazy(() => import("./pages/ShoppingCart/ShoppingCart"));
 const Shop = lazy(() => import("./pages/Shop/Shop"));
 
+export const BASE_URL = "https://backend-shop-s5w1.onrender.com/api";
+
 function App() {
   const [shopList, setShopList] = useState([]);
   const [activeShop, setActiveShop] = useState("MCDonald's");
   const [shopProducts, setShopProducts] = useState([]);
   const [cart, setCart] = useState([]);
-  console.log(cart);
-  const BASE_URL = "https://backend-shop-s5w1.onrender.com/api/shops";
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const getShops = async () => {
-      const result = await axios.get(BASE_URL);
-      const { data } = result.data;
-      const shops = data.result;
-      console.log(shops);
+      setLoading(true);
+      try {
+        const result = await axios.get(`${BASE_URL}/shops`);
+        const { data } = result.data;
+        const shops = data.result;
+        console.log(shops);
 
-      setShopList(shops);
+        setShopList(shops);
+        setLoading(false);
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
+      }
     };
 
     getShops();
@@ -45,19 +54,41 @@ function App() {
     if (index === -1) {
       setCart((prevState) => [...prevState, { ...newProduct, count: 1 }]);
     } else {
-      setCart((prevState) => {
-        return prevState.map((item) => {
-          if (item.id === id) {
-            return { ...item, count: item.count + 1 };
-          }
-          return item;
-        });
-      });
+      setCart((prevState) =>
+        prevState.map((item) =>
+          item.id === id ? { ...item, count: item.count + 1 } : item
+        )
+      );
     }
   };
 
   const handleChooseShop = (name) => {
     setActiveShop(name);
+  };
+
+  const handleDelete = (id) => {
+    setCart((prevState) => prevState.filter((product) => product.id !== id));
+  };
+
+  const handleIncrement = (id) => {
+    setCart((prevState) =>
+      prevState.map((item) =>
+        item.id === id ? { ...item, count: item.count + 1 } : item
+      )
+    );
+  };
+
+  const handleDecrement = (id) => {
+    const product = cart.find((product) => product.id === id);
+    if (product.count > 1) {
+      setCart((prevState) =>
+        prevState.map((item) =>
+          item.id === id ? { ...item, count: item.count - 1 } : item
+        )
+      );
+    } else {
+      setCart((prevState) => prevState.filter((product) => product.id !== id));
+    }
   };
 
   return (
@@ -72,10 +103,22 @@ function App() {
                 shopProducts={shopProducts}
                 shopList={shopList}
                 handleChooseShop={handleChooseShop}
+                error={error}
+                loading={loading}
               />
             }
           />
-          <Route path="/shoppingCart" element={<ShoppingCart list={cart} />} />
+          <Route
+            path="/shoppingCart"
+            element={
+              <ShoppingCart
+                list={cart}
+                handleDelete={handleDelete}
+                handleDecrement={handleDecrement}
+                handleIncrement={handleIncrement}
+              />
+            }
+          />
           <Route
             path="*"
             element={
@@ -84,6 +127,8 @@ function App() {
                 shopProducts={shopProducts}
                 shopList={shopList}
                 handleChooseShop={handleChooseShop}
+                error={error}
+                loading={loading}
               />
             }
           />
