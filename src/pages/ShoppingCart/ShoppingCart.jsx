@@ -8,6 +8,8 @@ import { HiOutlineArrowCircleLeft } from "react-icons/hi";
 import { useLocation } from "react-router-dom";
 import { CartProductItem } from "../../components/CartProductItem/CartProductItem";
 import { Form } from "../../components/Form/Form";
+import { Map } from "../../components/Map/Map";
+import { useState } from "react";
 
 function ShoppingCart({
   list,
@@ -19,7 +21,7 @@ function ShoppingCart({
   error,
 }) {
   const location = useLocation();
-
+  const [position, setPosition] = useState({ latitude: 0, longitude: 0 });
   const backLinkHref = location.state?.from ?? "/";
 
   return (
@@ -29,7 +31,16 @@ function ShoppingCart({
           <HiOutlineArrowCircleLeft /> Back
         </ButtonBack>
         <MainContainer>
-          <Form addOder={addOder} list={list} />
+          <div>
+            <Map setPosition={setPosition} position={position} />
+            <Form
+              addOder={addOder}
+              list={list}
+              position={position}
+              setPosition={setPosition}
+            />
+          </div>
+
           {list.length > 0 && !error && !loading && (
             <List>
               {list.map(({ id, name, photo, count, price }) => (

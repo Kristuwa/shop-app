@@ -24,13 +24,20 @@ const validateSchema = Yup.object().shape({
     .required("Required"),
 });
 
-export const Form = ({ addOder, list }) => {
+export const Form = ({ addOder, list, position, setPosition }) => {
+  const enterValue =
+    position.latitude !== 0
+      ? `lat:${position.latitude
+          .toString()
+          .slice(0, 6)}, long:${position.longitude.toString().slice(0, 6)}`
+      : "";
   const onSubmit = useCallback(
     (values, { resetForm }) => {
       addOder(values, list);
+      setPosition({ latitude: 0, longitude: 0 });
       resetForm();
     },
-    [addOder, list]
+    [addOder, list, setPosition]
   );
 
   return (
@@ -68,7 +75,12 @@ export const Form = ({ addOder, list }) => {
           </FieldContainer>
           <FieldContainer>
             <label htmlFor="address">Address</label>
-            <Input id="address" name="address" placeholder="Enter address" />
+            <Input
+              id="address"
+              name="address"
+              placeholder="Enter address"
+              value={enterValue}
+            />
             {errors.address && touched.address ? (
               <div>{errors.address}</div>
             ) : null}
