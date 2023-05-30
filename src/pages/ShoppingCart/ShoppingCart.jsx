@@ -9,7 +9,7 @@ import { useLocation } from "react-router-dom";
 import { CartProductItem } from "../../components/CartProductItem/CartProductItem";
 import { Form } from "../../components/Form/Form";
 import { Map } from "../../components/Map/Map";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 function ShoppingCart({
   list,
@@ -23,6 +23,15 @@ function ShoppingCart({
   const location = useLocation();
   const [position, setPosition] = useState({ latitude: 0, longitude: 0 });
   const backLinkHref = location.state?.from ?? "/";
+
+  const total = useMemo(
+    () =>
+      list.reduce((acc, { price, count }) => {
+        acc += price * count;
+        return acc;
+      }, 0),
+    [list]
+  );
 
   return (
     <main>
@@ -42,21 +51,24 @@ function ShoppingCart({
           </div>
 
           {list.length > 0 && !error && !loading && (
-            <List>
-              {list.map(({ id, name, photo, count, price }) => (
-                <CartProductItem
-                  key={id}
-                  id={id}
-                  name={name}
-                  photo={photo}
-                  count={count}
-                  price={price}
-                  handleDecrement={handleDecrement}
-                  handleIncrement={handleIncrement}
-                  handleDelete={handleDelete}
-                />
-              ))}
-            </List>
+            <>
+              <List>
+                {list.map(({ id, name, photo, count, price }) => (
+                  <CartProductItem
+                    key={id}
+                    id={id}
+                    name={name}
+                    photo={photo}
+                    count={count}
+                    price={price}
+                    handleDecrement={handleDecrement}
+                    handleIncrement={handleIncrement}
+                    handleDelete={handleDelete}
+                  />
+                ))}
+              </List>
+              <p>Total price: {total}</p>
+            </>
           )}
           {list.length === 0 && !error && !loading && (
             <Message>Your shopping cart is empty</Message>

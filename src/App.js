@@ -16,7 +16,10 @@ function App() {
   const [shopList, setShopList] = useState([]);
   const [activeShop, setActiveShop] = useState("MCDonald's");
   const [shopProducts, setShopProducts] = useState([]);
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(() => {
+    const storageCart = localStorage.getItem("cart");
+    return storageCart ? JSON.parse(storageCart) : [];
+  });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -46,6 +49,10 @@ function App() {
       setShopProducts(products);
     }
   }, [setShopProducts, activeShop, shopList]);
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
 
   const handleAddToCart = useCallback(
     (id) => {
