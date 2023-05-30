@@ -26,12 +26,19 @@ function ShoppingCart({
   const backLinkHref = location.state?.from ?? "/";
 
   useEffect(() => {
-    toast.success(JSON.stringify(navigator.geolocation));
-    navigator.geolocation.getCurrentPosition((position) => {
-      console.log(position.coords);
-      const { latitude, longitude } = position.coords;
-      setPosition({ latitude, longitude });
+    navigator.geolocation.getCurrentPosition(success, error, {
+      enableHighAccuracy: true,
     });
+
+    function success({ coords }) {
+      const { latitude, longitude } = coords;
+      const positionValues = { latitude, longitude };
+      setPosition(positionValues);
+    }
+
+    function error({ message }) {
+      toast.error("Your browser cannot request geolocation");
+    }
   }, []);
 
   const total = useMemo(
