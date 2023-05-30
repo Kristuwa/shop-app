@@ -17,9 +17,6 @@ export const AddMarkerToClick = ({ setPosition, position }) => {
 
   useMapEvents({
     click: handleClick,
-    locationfound: (location) => {
-      console.log("location found:", location);
-    },
   });
 
   return position.latitude !== 0 ? (

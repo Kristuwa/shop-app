@@ -7,6 +7,11 @@ import { AddMarkerToClick } from "../AddMarkerToClick/AddMarkerToClick";
 const positionCenter = [51.505, -0.09];
 
 export const Map = ({ setPosition, position }) => {
+  console.log(position);
+  //   const positionCenter = () =>
+  //     position.latitude === 0
+  //       ? [51.505, -0.09]
+  //       : [position.latitude, position.longitude];
   return (
     <MapBlock center={positionCenter} zoom={12} scrollWheelZoom={false}>
       <TileLayer

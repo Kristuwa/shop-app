@@ -9,7 +9,8 @@ import { useLocation } from "react-router-dom";
 import { CartProductItem } from "../../components/CartProductItem/CartProductItem";
 import { Form } from "../../components/Form/Form";
 import { Map } from "../../components/Map/Map";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { toast } from "react-toastify";
 
 function ShoppingCart({
   list,
@@ -23,6 +24,15 @@ function ShoppingCart({
   const location = useLocation();
   const [position, setPosition] = useState({ latitude: 0, longitude: 0 });
   const backLinkHref = location.state?.from ?? "/";
+
+  useEffect(() => {
+    toast.success(JSON.stringify(navigator.geolocation));
+    navigator.geolocation.getCurrentPosition((position) => {
+      console.log(position.coords);
+      const { latitude, longitude } = position.coords;
+      setPosition({ latitude, longitude });
+    });
+  }, []);
 
   const total = useMemo(
     () =>
